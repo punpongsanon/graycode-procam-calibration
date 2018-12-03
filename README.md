@@ -92,7 +92,7 @@ cmake --build .  --target install --config release
 cmake --build .  --target install --config debug
 popd
 ```
-The line 'git checkout refs/tags/3.4.1' indicate the version of OpenCV. In this case, we will use the 3.4.1 version (you can change the version by going to the *tag*(https://github.com/opencv/opencv/tags) and checking the right version you need). 
+The line 'git checkout refs/tags/3.4.1' indicate the version of OpenCV. In this case, we will use the 3.4.1 version (you can change the version by going to the [*tag*](https://github.com/opencv/opencv/tags) and checking the right version you need). 
 
 THe line 'CMAKE_CONFIG_GENERATOR="Visual Studio 15 2017 Win64' indicate the complier, make sure that you are install the 'Visuali Studio 2017 (VC15)' with 64x version. You can change to the different version based on your Visual Studio version. 
 
