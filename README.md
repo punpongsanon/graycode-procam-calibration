@@ -3,6 +3,10 @@
 
 Please refer to the original project (in Japanese) from [@kamino410](https://github.com/kamino410/cv-snippets/blob/master/graycode/main.cpp). 
 
+![projection-mapping-calibration](https://cdn.instructables.com/FMA/K94O/G3KYBTX1/FMAK94OG3KYBTX1.LARGE.jpg)
+
+Similar process with the 3D reconsturction with Structured Light 3D Scanning ([see this page](https://www.instructables.com/id/Structured-Light-3D-Scanning/)).
+
 This git provides the sourcecode regards the projection mapping technique using [Gray Code pattern](https://en.wikipedia.org/wiki/Gray_code/). Technically, in order to project an image on the correct geometry of the projection target, the projector and the object surface should know the exactly corresponding location between each other. Unfortunately, the projector itself does not have eye. The only (easy) method to due with this is to add the camera into system. Therefore, instead of finding the corresponding between object and projector directly, in this case, we can find the relationship between projector-camera and object-camera. Precisely, find the intrinsic and extensic parateters of camera and projector. 
 
 In this case, we looking at the graycode method, which is the way to obtain the target surface information by projecting the pattern contain special code to the surface and capture it with the camera. Assumed the projector and camera setup is identical and sharing the axis, it is automatically obtain intrinsic and extensic including the mapping points between surface-camera-projector with a single shot. 
@@ -53,12 +57,9 @@ Click in to the folder, and then right click and select 'Git Bash Here' to open 
 
 **Step 4**
 
-Type the command
-```sh
-touch install.sh
-```
-to create the install command file. The file 'install.sh' will display in the folder. 
+Type the command ```touch install.sh``` to create the install command file. The file 'install.sh' will display in the folder. 
 Right-click on the file and open it with Notepad. Then, copy the follows code to the file.
+
 ```sh
 #!/bin/bash -e
 myRepo=$(pwd)
@@ -101,6 +102,7 @@ cmake --build .  --target install --config release
 cmake --build .  --target install --config debug
 popd
 ```
+
 The line 'git checkout refs/tags/3.4.1' indicate the version of OpenCV. In this case, we will use the 3.4.1 version (you can change the version by going to the [*tag*](https://github.com/opencv/opencv/tags) and checking the right version you need). 
 
 THe line 'CMAKE_CONFIG_GENERATOR="Visual Studio 15 2017 Win64' indicate the complier, make sure that you are install the 'Visuali Studio 2017 (VC15)' with 64x version. You can change to the different version based on your Visual Studio version. 
@@ -116,6 +118,15 @@ Please also add ```C:\opencv\Install\opencv\x64\vc15\bin``` to the PATH of opera
 ### Run
 You then can ```pull``` the source code from this git and setup the Visual Studio software. 
 The current version setup the webcamera (any USB camera that connected to the computer) as the camera for calibration with projector. 
+
+Once setup the Visual Studio project, setup and link the library. One the file main.cpp, and setup the projection resolution:
+
+```sh
+#define WINDOWWIDTH 1920
+#define WINDOWHEIGHT 1080
+```
+
+This TWO parameters should similar to the size of the projector resolution (the display from projector). 
 
 
 
