@@ -7,7 +7,7 @@ This git provides the sourcecode regards the projection mapping technique using 
 
 In this case, we looking at the graycode method, which is the way to obtain the target surface information by projecting the pattern contain special code to the surface and capture it with the camera. Assumed the projector and camera setup is identical and sharing the axis, it is automatically obtain intrinsic and extensic including the mapping points between surface-camera-projector with a single shot. 
 
-Some related work
+__Some related work__
 - [Projector Optical Distortion Calibration Using Gray Code Patterns](https://ieeexplore.ieee.org/document/5543487)
 - [Shape Disparity Inspection of the Textured Object and Its Notification by Overlay Projection](https://www.researchgate.net/publication/221096805_Shape_Disparity_Inspection_of_the_Textured_Object_and_Its_Notification_by_Overlay_Projection)
 - [Structured-light 3D surface imaging: a tutorial](https://www.osapublishing.org/aop/fulltext.cfm?uri=aop-3-2-128&id=211561)
