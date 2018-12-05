@@ -1,7 +1,16 @@
 # projector-camera calibration using Graycode pattern
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 
-Please refer to the original project (in Japanese) from [@kamino410](https://github.com/kamino410/cv-snippets/blob/master/graycode/main.cpp)
+Please refer to the original project (in Japanese) from [@kamino410](https://github.com/kamino410/cv-snippets/blob/master/graycode/main.cpp). 
+
+This git provides the sourcecode regards the projection mapping technique using **[Gray Code pattern]**(https://en.wikipedia.org/wiki/Gray_code). Technically, in order to project an image on the correct geometry of the projection target, the projector and the object surface should know the exactly corresponding location between each other. Unfortunately, the projector itself does not have eye. The only (easy) method to due with this is to add the camera into system. Therefore, instead of finding the corresponding between object and projector directly, in this case, we can find the relationship between projector-camera and object-camera. Precisely, find the intrinsic and extensic parateters of camera and projector. 
+
+In this case, we looking at the graycode method, which is the way to obtain the target surface information by projecting the pattern contain special code to the surface and capture it with the camera. Assumed the projector and camera setup is identical and sharing the axis, it is automatically obtain intrinsic and extensic including the mapping points between surface-camera-projector with a single shot. 
+
+Some related work
+- [Projector Optical Distortion Calibration Using Gray Code Patterns](https://ieeexplore.ieee.org/document/5543487)
+- [Shape Disparity Inspection of the Textured Object and Its Notification by Overlay Projection](https://www.researchgate.net/publication/221096805_Shape_Disparity_Inspection_of_the_Textured_Object_and_Its_Notification_by_Overlay_Projection)
+- [Structured-light 3D surface imaging: a tutorial](https://www.osapublishing.org/aop/fulltext.cfm?uri=aop-3-2-128&id=211561)
 
 ### Requirement
 This code requires the following thirdparty
