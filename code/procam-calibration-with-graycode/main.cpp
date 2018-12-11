@@ -2,11 +2,13 @@
 #include <vector>
 #include <sstream>
 
-#include <opencv2/opencv.hpp>  // checked at opencv 3.4.1
-#include <opencv2/structured_light.hpp>
+#include <opencv2/opencv.hpp>			// checked at opencv 3.4.1
+#include <opencv2/structured_light.hpp>	// opencv contrib version
 
-#define WINDOWWIDTH 1920
-#define WINDOWHEIGHT 1080
+#define WINDOWWIDTH 1280
+#define WINDOWHEIGHT 800
+#define SCREENPOSX 3440
+#define SCREENPOSY 0
 #define GRAYCODEWIDTHSTEP 5
 #define GRAYCODEHEIGHTSTEP 5
 #define GRAYCODEWIDTH WINDOWWIDTH / GRAYCODEWIDTHSTEP
@@ -16,7 +18,7 @@
 
 cv::VideoCapture camera;
 
-// 自分が使うカメラに合わせて実装する
+// Initial camera (using OpenCV, this can modify to the different camera)
 void initializeCamera() 
 {
 	camera = cv::VideoCapture(0);
@@ -75,10 +77,10 @@ int main()
 	// -----------------------------
 	cv::namedWindow("Pattern", cv::WINDOW_NORMAL);
 	cv::resizeWindow("Pattern", GRAYCODEWIDTH, GRAYCODEHEIGHT);
-	// 2枚目のディスプレイにフルスクリーン表示
-	cv::moveWindow("Pattern", 1920, 0);
-	cv::setWindowProperty("Pattern", cv::WND_PROP_FULLSCREEN,
-		cv::WINDOW_FULLSCREEN);
+	// This is the setting to display on the second display, 
+	// please adjust SCREENPOSX, SCREENPOSY
+	cv::moveWindow("Pattern", SCREENPOSX, SCREENPOSY);
+	cv::setWindowProperty("Pattern", cv::WND_PROP_FULLSCREEN, cv::WINDOW_FULLSCREEN);
 
 	// ----------------------------------
 	// ----- Wait camera adjustment -----
@@ -99,14 +101,14 @@ int main()
 	int cnt = 0;
 	for (auto gimg : graycodes) {
 		cv::imshow("Pattern", gimg);
-		// ディスプレイに表示->カメラバッファに反映されるまで待つ
-		// 必要な待ち時間は使うカメラに依存
+		// Display an image (graycode) on the display > wait umtil reflected in the camera buffer
+		// This requires waiting time depends on the camera
 		cv::waitKey(400);
 
 		cv::Mat img = getCameraImage();
 		std::ostringstream oss;
 		oss << std::setfill('0') << std::setw(2) << cnt++;
-		cv::imwrite("cam_" + oss.str() + ".png", img);
+		cv::imwrite("captured/cam_" + oss.str() + ".png", img);
 
 		captured.push_back(img);
 	}
@@ -116,7 +118,7 @@ int main()
 	// -------------------------------
 	// ----- Decode the graycode -----
 	// -------------------------------
-	// pattern->decode()は視差マップの解析に使う関数なので今回は使わない
+	// pattern->decode() は視差マップの解析に使う関数なので今回は使わない
 	// pattern->getProjPixel()を使って各カメラ画素に写ったプロジェクタ画素の座標を計算
 	cv::Mat white = captured.back();
 	captured.pop_back();
@@ -134,7 +136,8 @@ int main()
 			cv::Point pixel;
 			if (white.at<cv::uint8_t>(y, x) - black.at<cv::uint8_t>(y, x) >
 				BLACKTHRESHOLD &&
-				!pattern->getProjPixel(captured, x, y, pixel)) {
+				!pattern->getProjPixel(captured, x, y, pixel)) 
+			{
 				c2pX.at<cv::uint16_t>(y, x) = pixel.x;
 				c2pY.at<cv::uint16_t>(y, x) = pixel.y;
 				c2pList.push_back(C2P(x, y, pixel.x * GRAYCODEWIDTHSTEP,
