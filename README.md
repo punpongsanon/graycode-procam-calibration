@@ -127,7 +127,33 @@ Once setup the Visual Studio project, setup and link the library. One the file m
 ```
 
 This TWO parameters should similar to the size of the projector resolution (the display from projector). 
+The current code provides the standard camera (e.g., webcam) via this line of code ```initializeCamera() ```: 
 
+```sh
+void initializeCamera() 
+{
+	camera = cv::VideoCapture(0);
+}
+```
+
+Please modify to the different setting in the case you are using different type of camera. 
+Please also change the ```SCREENPOSX``` and ```SCREENPOSY``` related to your second display (the display that displayed by projection). Otherwise, the image should display on your first screen (the computer screen). 
+
+```sh
+#define SCREENPOSX 3440
+#define SCREENPOSY 0
+```
+
+For example, in this case the ```x = 3440 pixel location ``` and ```y = 0 pixel location``` it is located at the end of first screen position. Then, run the code, the gray image should appears on the projector. In the case, it is stop running, enter the ```spacebar```. 
+
+![capture graycode with projection setup](https://cdn-ak.f.st-hatena.com/images/fotolife/k/kamino-dev/20180416/20180416174936.png)
+
+Once the captured completed the captured image will stored in the folder ```captured``` and the mapping between camera-projector pixel will save as an ```c2p.csv``` file.
+
+### How to use the calibration file
+The file ```c2p.csv``` contains the coordinate between camera-projector. It is easy to use as an lookup table where the user select the object position in the camera captured image, read that location, and translate to projector pixel for the projection mapping. 
+
+![sample projection mapping](https://blogs.panasonic.com.au/business/media/2017/11/Panasonic-FINA-Opening-Ceremony-Projector-Mapping-04.jpg)
 
 
 License
