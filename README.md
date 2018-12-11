@@ -146,7 +146,7 @@ Please also change the ```SCREENPOSX``` and ```SCREENPOSY``` related to your sec
 
 For example, in this case the ```x = 3440 pixel location``` and ```y = 0 pixel location``` it is located at the end of first screen position. Then, run the code, the gray image should appears on the projector. In the case, it is stop running, enter the ```spacebar```. 
 
-![capture graycode with projection setup](https://cdn-ak.f.st-hatena.com/images/fotolife/k/kamino-dev/20180416/20180416174936.png)
+![capture graycode with projection setup](https://github.com/punpongsanon/graycode-procam-calibration/blob/master/images/capture-gray-code-setup.PNG)
 
 Once the captured completed the captured image will stored in the folder ```captured``` and the mapping between camera-projector pixel will save as an ```c2p.csv``` file.
 
